@@ -1,0 +1,127 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Remove audio + photo features/sections from anniversary site (frontend-only)",
+  "requirements": [
+    {
+      "id": "REQ-22",
+      "summary": "Remove the background music UI and all audio playback logic/asset references from the runtime.",
+      "acceptanceCriteria": [
+        "The MusicPlayer component is not rendered anywhere in the app.",
+        "The app no longer references or requires any audio asset paths under /assets/audio/ (directly or via config).",
+        "There are no remaining user-facing audio controls (play/pause/volume/mute) in the UI."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove MusicPlayer import and rendering so no audio player UI is mounted anywhere; ensure no leftover audio-related UI controls remain."
+        },
+        {
+          "path": "frontend/src/components/MusicPlayer.tsx",
+          "operation": "delete",
+          "description": "Delete the MusicPlayer component implementation so no audio playback logic ships in the frontend bundle."
+        },
+        {
+          "path": "frontend/src/anniversary/content.ts",
+          "operation": "modify",
+          "description": "Remove the music/audio configuration block and any inline audio setup instructions so the app no longer references /assets/audio/ paths."
+        }
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "summary": "Remove the Photo Gallery section and all gallery-driven lightbox interactions, including navbar/scroll-spy references.",
+      "acceptanceCriteria": [
+        "The Gallery section is not rendered in the page flow.",
+        "The navbar/scroll-spy no longer includes a Gallery entry/section id and does not track it.",
+        "No lightbox/modal is opened from gallery interactions because gallery interactions are removed."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Remove GallerySection import and rendering from the page flow, and update the scroll-spy section list to exclude the gallery section id."
+        },
+        {
+          "path": "frontend/src/components/AnniversaryNavbar.tsx",
+          "operation": "modify",
+          "description": "Remove the 'gallery' nav item so the navbar no longer includes or scrolls to the Gallery section."
+        },
+        {
+          "path": "frontend/src/components/GallerySection.tsx",
+          "operation": "delete",
+          "description": "Delete the Gallery section implementation (grid + click-to-open lightbox) so no gallery interactions remain."
+        },
+        {
+          "path": "frontend/src/components/LightboxDialog.tsx",
+          "operation": "delete",
+          "description": "Remove the shared image lightbox dialog since gallery/lightbox interactions are being removed (and it will no longer be used after letter removal as well)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "summary": "Remove the framed hero photo so the Hero section renders without any photo or gallery-sourced image references.",
+      "acceptanceCriteria": [
+        "The Hero section renders without any photo/image that was previously displayed as the framed hero photo.",
+        "The app does not reference the hero photo path (e.g., /assets/gallery/then-and-now.jpg) anymore."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/HeroSection.tsx",
+          "operation": "modify",
+          "description": "Remove FramedPhoto usage and the hero image asset reference so the hero displays only the existing text content."
+        },
+        {
+          "path": "frontend/src/components/FramedPhoto.tsx",
+          "operation": "delete",
+          "description": "Delete the FramedPhoto component since the hero framed photo is removed and it should no longer be referenced anywhere."
+        }
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "summary": "Remove the handwritten letter image preview and letter lightbox from the Family Messages section so only text messages remain.",
+      "acceptanceCriteria": [
+        "The Messages section does not render any handwritten letter image preview button.",
+        "The Messages section does not open a lightbox/modal for a handwritten letter image.",
+        "The app no longer references or requires any letter image asset paths under /assets/letters/."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/MessagesSection.tsx",
+          "operation": "modify",
+          "description": "Remove handwritten letter rendering, the image preview button, and the letter lightbox state/trigger so the section contains only the text-based messages."
+        },
+        {
+          "path": "frontend/src/anniversary/content.ts",
+          "operation": "modify",
+          "description": "Remove handwritten letter configuration (and any /assets/letters/ paths) so no letter image assets are referenced by the app."
+        }
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "summary": "Update the centralized anniversary configuration to remove photo/audio fields and related inline instructions now that those features are removed.",
+      "acceptanceCriteria": [
+        "The configuration no longer contains photo gallery instructions or gallery dataset entries if they are not used by the app.",
+        "The configuration no longer contains handwritten letter image configuration if it is not used by the app.",
+        "The configuration no longer contains music/audio configuration if it is not used by the app.",
+        "The frontend builds successfully with no unused/invalid references caused by removing these config fields."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/anniversary/content.ts",
+          "operation": "modify",
+          "description": "Remove photo gallery instructions and data, remove handwritten letter image config, and remove music/audio config; ensure remaining content shape matches what the UI now consumes."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Confirm App references only remaining config fields after config cleanup (and ensure the app compiles cleanly without removed photo/audio fields)."
+        }
+      ]
+    }
+  ]
+}

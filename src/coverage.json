@@ -1,0 +1,105 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-05T18:54:24.045Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 5,
+    "implemented": 5,
+    "items": [
+      {
+        "id": "REQ-22",
+        "summary": "Remove the background music feature from the website UI so no audio player is rendered and no audio playback logic is included in the app runtime.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/components/MusicPlayer.tsx",
+          "frontend/src/anniversary/content.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/components/MusicPlayer.tsx",
+          "frontend/src/anniversary/content.ts"
+        ]
+      },
+      {
+        "id": "REQ-23",
+        "summary": "Remove all photo-related parts from the website, including the Photo Gallery section and any photo lightbox interactions.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/components/AnniversaryNavbar.tsx",
+          "frontend/src/components/GallerySection.tsx",
+          "frontend/src/components/LightboxDialog.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx",
+          "frontend/src/components/AnniversaryNavbar.tsx",
+          "frontend/src/components/GallerySection.tsx",
+          "frontend/src/components/LightboxDialog.tsx"
+        ]
+      },
+      {
+        "id": "REQ-24",
+        "summary": "Remove photo usage from the Hero section so the hero no longer displays a framed photo or any gallery-sourced image.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/HeroSection.tsx",
+          "frontend/src/components/FramedPhoto.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/HeroSection.tsx",
+          "frontend/src/components/FramedPhoto.tsx"
+        ]
+      },
+      {
+        "id": "REQ-25",
+        "summary": "Remove the handwritten letter image feature from the Family Messages section so the section contains only text-based messages and no letter image preview or letter lightbox.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/MessagesSection.tsx",
+          "frontend/src/anniversary/content.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/MessagesSection.tsx",
+          "frontend/src/anniversary/content.ts"
+        ]
+      },
+      {
+        "id": "REQ-26",
+        "summary": "Update the centralized anniversary configuration to remove photo/audio configuration fields and related inline instructions that are no longer applicable after removing photo/audio features.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/anniversary/content.ts",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/anniversary/content.ts",
+          "frontend/src/App.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/App.tsx",
+    "frontend/src/anniversary/content.ts",
+    "frontend/src/components/AnniversaryNavbar.tsx",
+    "frontend/src/components/FramedPhoto.tsx",
+    "frontend/src/components/GallerySection.tsx",
+    "frontend/src/components/HeroSection.tsx",
+    "frontend/src/components/LightboxDialog.tsx",
+    "frontend/src/components/MessagesSection.tsx",
+    "frontend/src/components/MusicPlayer.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

@@ -1,2 +1,3 @@
-# build-a-complete-traditional-23rd-anniversary-website-parents-with-music-timelin
-Exported from Caffeine project: Build a complete traditional 23rd anniversary website (parents) with music, timeline, gallery, and messages
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

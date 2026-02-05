@@ -1,0 +1,109 @@
+{
+  "kind": "build_request",
+  "title": "Remove background music feature and photo-related sections from the anniversary site",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-22",
+      "text": "Remove the background music feature from the website UI so no audio player is rendered and no audio playback logic is included in the app runtime.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "remove the audio things and the photo parts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The MusicPlayer component is not rendered anywhere in the app.",
+        "The app no longer references or requires any audio asset paths under /assets/audio/ (directly or via config).",
+        "There are no remaining user-facing audio controls (play/pause/volume/mute) in the UI."
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Remove all photo-related parts from the website, including the Photo Gallery section and any photo lightbox interactions.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "remove the audio things and the photo parts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Gallery section is not rendered in the page flow.",
+        "The navbar/scroll-spy no longer includes a Gallery entry/section id and does not track it.",
+        "No lightbox/modal is opened from gallery interactions because gallery interactions are removed."
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "text": "Remove photo usage from the Hero section so the hero no longer displays a framed photo or any gallery-sourced image.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "remove the audio things and the photo parts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Hero section renders without any photo/image that was previously displayed as the framed hero photo.",
+        "The app does not reference the hero photo path (e.g., /assets/gallery/then-and-now.jpg) anymore."
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "text": "Remove the handwritten letter image feature from the Family Messages section so the section contains only text-based messages and no letter image preview or letter lightbox.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "remove the audio things and the photo parts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Messages section does not render any handwritten letter image preview button.",
+        "The Messages section does not open a lightbox/modal for a handwritten letter image.",
+        "The app no longer references or requires any letter image asset paths under /assets/letters/."
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "Update the centralized anniversary configuration to remove photo/audio configuration fields and related inline instructions that are no longer applicable after removing photo/audio features.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "remove the audio things and the photo parts"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The configuration no longer contains photo gallery instructions or gallery dataset entries if they are not used by the app.",
+        "The configuration no longer contains handwritten letter image configuration if it is not used by the app.",
+        "The configuration no longer contains music/audio configuration if it is not used by the app.",
+        "The frontend builds successfully with no unused/invalid references caused by removing these config fields."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files under frontend/src/components/ui or any other immutable paths listed in SYSTEM_CONTEXT.",
+    "Backend remains a single Motoko actor; no backend changes are required for this request."
+  ],
+  "nonGoals": [
+    "Do not translate or rewrite the site’s existing content as part of this change (only remove audio/photo features/sections).",
+    "Do not introduce new sections or new features beyond removing the requested parts."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}
