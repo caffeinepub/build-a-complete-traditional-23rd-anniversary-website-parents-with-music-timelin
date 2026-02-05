@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 25,
+  "projectStateVersion": 27,
   "summary": "Build a traditional, elegant 23rd anniversary website for the user's parents with all site content in Hindi and less emphasis on \"family come together\" messaging, but remove/omit the background audio/music feature and remove/omit photo-related parts (photo gallery/intake) from the site.",
   "architectural_notes": [
     "Website should feel traditional and elegant (not Gen Z / overly lovey-dovey), suitable for an arranged-marriage context.",
@@ -290,6 +290,14 @@
         "REQ-35"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-comments-section-ui-so-the-submitted-comments-list-is-displayed-as-a-comment-section-directly-under-the-comment-submission-box-form-rather-than-appearing-as-a-separate-visually-distant-block",
+      "title": "Update the Comments section UI so the submitted comments list is displayed as a comment section directly under the comment submission box (form), rather than appearing as a separate, visually distant block.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -356,6 +364,12 @@
     {
       "id": "AR-15",
       "summary": "Add a visitor comments feature: a new section with a form that lets site visitors leave a comment (name + message) and displays submitted comments.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "In the visitor comments section, display submitted comments as a comment list/section directly under the comment submission box (form).",
       "reqIds": [],
       "status": "pending"
     }

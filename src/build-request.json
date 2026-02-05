@@ -1,57 +1,36 @@
 {
   "kind": "build_request",
-  "title": "Update timeline milestones and add visitor comment submission feature",
+  "title": "Show submitted comments directly under the comment form",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-34",
-      "text": "Update the centralized timeline dataset in `frontend/src/anniversary/content.ts` to match the user-provided milestones (2003–2020) and add a few additional positive placeholder milestones that are clearly marked as editable.",
+      "id": "REQ-36",
+      "text": "Update the Comments section UI so the submitted comments list is displayed as a comment section directly under the comment submission box (form), rather than appearing as a separate, visually distant block.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-6"
         ],
         "quotes": [
-          "timeline:\n1. 2003 06 feb - marriage.\n2. 2004 19 march - first child( my elder sister)\n3. 2009 - got a permanent job at SAINIK SCHOOL AMBIKAPUR\n4. 2010- second child ( me )\n5. 2016 - Bought a car\n6 2016- got shifted to the sainik school campus.\n7. 2020- the covid pandemic started. \nadd a few more for more good stuff. ok???"
+          "the comments should be shown as a comment section under the comment box"
         ]
       },
       "acceptanceCriteria": [
-        "`anniversaryContent.timeline` contains milestones representing all 7 user-provided entries (years and dates preserved as written by the user).",
-        "The timeline still renders correctly in `TimelineSection` with no layout break across mobile/desktop.",
-        "At least 2 additional timeline items are added as positive, generic placeholders (e.g., clearly labeled for later editing) and are editable in the same `anniversaryContent.timeline` array."
-      ]
-    },
-    {
-      "id": "REQ-35",
-      "text": "Add a visitor comment submission feature in the Comments section: provide a form (name + comment) that lets site visitors submit a comment, persist submitted comments in the Motoko backend, and display submitted comments in the Comments section UI.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "add a part for the comments of people who see it. it should give them the option to leave a comment. plz do it"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend: `backend/main.mo` implements comment storage and exposes methods to (1) list comments and (2) add a comment (with basic validation such as non-empty fields and reasonable max lengths).",
-        "Backend data persists across page refreshes/upgrades using stable storage (add `backend/migration.mo` only if required by an existing state upgrade).",
-        "Frontend: `CommentsSection` includes a visible form with inputs for visitor name and comment plus a submit button.",
-        "Frontend: On submit, the UI calls the backend to store the comment, then refreshes the displayed list without a full page reload (React Query).",
-        "Frontend: The Comments section displays a list that includes newly submitted comments; submission shows user feedback for loading and error states.",
-        "No photo or music-related UI/logic is reintroduced while implementing this feature."
+        "On the Comments section, the comment list renders immediately below the submission form area within the same visual flow (no large gap separating them).",
+        "The existing submit flow remains unchanged: submitting a comment clears the inputs and the newly submitted comment appears in the list after the posts query refreshes.",
+        "If there are no comments, the empty-state message is shown directly under the form.",
+        "Loading state for fetching comments is shown directly under the form."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor in `backend/main.mo` (no additional backend services).",
-    "Do not edit files under `frontend/src/components/ui`, `frontend/src/hooks/useInternetIdentity.ts`, `frontend/src/hooks/useInternetIdentity.tsx`, `frontend/src/hooks/useActor.ts`, or `frontend/src/main.tsx` (compose around them).",
-    "Keep existing removals intact: no background music feature and no photo/gallery/lightbox features should be re-added."
+    "Do not modify files under frontend/src/components/ui or any other immutable paths.",
+    "Keep the existing backend API and data model for posts unchanged (name + comment, existing length limits)."
   ],
   "nonGoals": [
-    "Do not add third-party auth providers (only Internet Identity if needed).",
-    "Do not add real-time chat/WebSocket functionality; simple submit-and-refresh is sufficient.",
-    "Do not implement comment moderation/admin dashboards unless explicitly requested later."
+    "Do not add new fields to comments (e.g., timestamps, avatars beyond the existing initial).",
+    "Do not change Internet Identity/authentication behavior.",
+    "Do not redesign other site sections beyond what is necessary to place the comments list under the form."
   ],
   "imageRequirements": {
     "required": [],
@@ -60,9 +39,7 @@
   "userProfileUpdate": {
     "goalsToAdd": [],
     "goalsToRemove": [],
-    "preferencesToAdd": [
-      "Use English for any user-facing text in build requests/specs."
-    ],
+    "preferencesToAdd": [],
     "preferencesToRemove": [],
     "miscToAdd": [],
     "miscToRemove": [],

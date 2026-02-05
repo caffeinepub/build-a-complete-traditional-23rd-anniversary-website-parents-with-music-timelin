@@ -5,6 +5,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Card, CardContent } from './ui/card';
 import { Label } from './ui/label';
+import { Separator } from './ui/separator';
 import { Loader2 } from 'lucide-react';
 
 export default function CommentsSection() {
@@ -53,9 +54,9 @@ export default function CommentsSection() {
                     Leave a Comment
                 </h2>
 
-                {/* Comment Submission Form */}
-                <Card className="mb-12 border-2 border-primary/20">
+                <Card className="border-2 border-primary/20">
                     <CardContent className="pt-6">
+                        {/* Comment Submission Form */}
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
                                 <Label htmlFor="name" className="text-base">
@@ -111,48 +112,51 @@ export default function CommentsSection() {
                                 )}
                             </Button>
                         </form>
+
+                        {/* Divider */}
+                        <Separator className="my-8" />
+
+                        {/* Comments Display */}
+                        <div>
+                            <h3 className="text-xl font-semibold mb-6">
+                                Visitor Comments
+                            </h3>
+
+                            {isLoadingPosts ? (
+                                <div className="flex justify-center py-12">
+                                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                                </div>
+                            ) : posts.length === 0 ? (
+                                <p className="text-center text-muted-foreground py-12">
+                                    No comments yet. Be the first to leave a comment!
+                                </p>
+                            ) : (
+                                <div className="grid gap-6 md:grid-cols-2">
+                                    {posts.map((post, index) => (
+                                        <div
+                                            key={index}
+                                            className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                                        >
+                                            <p className="text-muted-foreground mb-4 leading-relaxed">
+                                                {post.comment}
+                                            </p>
+                                            <div className="flex items-center">
+                                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
+                                                    <span className="text-primary font-semibold text-lg">
+                                                        {post.name ? post.name.charAt(0).toUpperCase() : '?'}
+                                                    </span>
+                                                </div>
+                                                <p className="font-medium text-foreground">
+                                                    {post.name}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </CardContent>
                 </Card>
-
-                {/* Comments Display */}
-                <div>
-                    <h3 className="text-xl font-semibold mb-6 text-center">
-                        Visitor Comments
-                    </h3>
-
-                    {isLoadingPosts ? (
-                        <div className="flex justify-center py-12">
-                            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                        </div>
-                    ) : posts.length === 0 ? (
-                        <p className="text-center text-muted-foreground py-12">
-                            No comments yet. Be the first to leave a comment!
-                        </p>
-                    ) : (
-                        <div className="grid gap-6 md:grid-cols-2">
-                            {posts.map((post, index) => (
-                                <div
-                                    key={index}
-                                    className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
-                                >
-                                    <p className="text-muted-foreground mb-4 leading-relaxed">
-                                        {post.comment}
-                                    </p>
-                                    <div className="flex items-center">
-                                        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-3">
-                                            <span className="text-primary font-semibold text-lg">
-                                                {post.name ? post.name.charAt(0).toUpperCase() : '?'}
-                                            </span>
-                                        </div>
-                                        <p className="font-medium text-foreground">
-                                            {post.name}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
             </div>
         </section>
     );

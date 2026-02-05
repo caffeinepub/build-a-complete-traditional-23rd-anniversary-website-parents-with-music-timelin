@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-centralized-timeline-dataset-in-frontend-src-anniversary-content-ts-to-match-the-user-provided-milestones-2003-2020-and-add-a-few-additional-positive-placeholder-milestones-that-are-clearly-marked-as-editable",
-      "featureTitle": "Update the centralized timeline dataset in `frontend/src/anniversary/content.ts` to match the user-provided milestones (2003–2020) and add a few additional positive placeholder milestones that are clearly marked as editable.",
+      "featureId": "feature-update-the-comments-section-ui-so-the-submitted-comments-list-is-displayed-as-a-comment-section-directly-under-the-comment-submission-box-form-rather-than-appearing-as-a-separate-visually-distant-block",
+      "featureTitle": "Update the Comments section UI so the submitted comments list is displayed as a comment section directly under the comment submission box (form), rather than appearing as a separate, visually distant block.",
       "files": [
-        "frontend/src/anniversary/content.ts"
+        "frontend/src/components/CommentsSection.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,26 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-34"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-visitor-comment-submission-feature-in-the-comments-section-provide-a-form-name-comment-that-lets-site-visitors-submit-a-comment-persist-submitted-comments-in-the-motoko-backend-and-display-submitted-comments-in-the-comments-section-ui",
-      "featureTitle": "Add a visitor comment submission feature in the Comments section: provide a form (name + comment) that lets site visitors submit a comment, persist submitted comments in the Motoko backend, and display submitted comments in the Comments section UI.",
-      "files": [
-        "frontend/src/components/CommentsSection.tsx",
-        "frontend/src/hooks/usePosts.ts"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-35"
+        "REQ-36"
       ],
       "confidence": "high"
     }

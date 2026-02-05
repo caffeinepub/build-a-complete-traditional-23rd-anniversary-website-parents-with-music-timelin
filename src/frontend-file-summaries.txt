@@ -21,6 +21,6 @@
   "frontend/src/utils/assetUrl.ts": "Utility function that builds BASE_URL-aware static asset URLs, ensuring correct resolution under both root and non-root deployment paths.",
   "frontend/src/components/SafeImage.tsx": "Reusable image wrapper component that resolves asset URLs via BASE_URL utility, handles load errors with Hindi fallback UI, and logs contextual warnings to console.",
   "frontend/src/components/RequiredContent.tsx": "Helper component that renders required text fields from centralized content, displaying a styled Hindi fallback message and logging console warnings with field paths when values are missing or empty.",
-  "frontend/src/components/CommentsSection.tsx": "Comments section with visitor comment submission form (name and comment inputs) and display of backend-persisted posts using React Query, with loading states and error handling.",
+  "frontend/src/components/CommentsSection.tsx": "Comments section with visitor comment submission form and display of backend-persisted posts using React Query, now with the comments list rendered directly under the form within the same Card component separated by a divider, with loading states and error handling.",
   "frontend/src/hooks/usePosts.ts": "React Query hooks for fetching posts from backend and adding new posts with automatic cache invalidation."
 }
