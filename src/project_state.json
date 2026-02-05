@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
+  "projectStateVersion": 25,
   "summary": "Build a traditional, elegant 23rd anniversary website for the user's parents with all site content in Hindi and less emphasis on \"family come together\" messaging, but remove/omit the background audio/music feature and remove/omit photo-related parts (photo gallery/intake) from the site.",
   "architectural_notes": [
     "Website should feel traditional and elegant (not Gen Z / overly lovey-dovey), suitable for an arranged-marriage context.",
@@ -10,9 +10,13 @@
     "Parents' names to use across the site: Mother = Shivani Tiwari; Father = Ravindra Tiwari (set in centralized config/constants).",
     "Wherever the site displays parents’ names, use the labels “PAPA” and “MUMMY” (per user preference) instead of formal names, unless the user later requests otherwise.",
     "Remove/omit the background soundtrack/audio player feature.",
-    "Remove/omit photo-related parts (gallery/intake/photo display) from the site."
+    "Remove/omit photo-related parts (gallery/intake/photo display) from the site.",
+    "Remove/omit the “Humari Kahani” section/content and avoid overly lovey-dovey phrasing; keep tone respectful and suitable for an arranged-marriage context.",
+    "Preserve the previously approved/old Hindi site text and only remove/exclude the specific sections/phrases the user requested to omit; avoid accidentally deleting other copy."
   ],
-  "known_issues": [],
+  "known_issues": [
+    "User reports that site text is missing/removed; needs restoration of the old text except for explicitly excluded parts."
+  ],
   "isFixRequest": false,
   "existing_features": [
     {
@@ -214,6 +218,78 @@
         "REQ-26"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-remove-the-humari-kahani-about-story-section-from-the-single-page-site-so-it-is-no-longer-rendered-linked-in-the-navbar-or-tracked-in-the-scroll-spy-active-section-logic",
+      "title": "Remove the “Humari Kahani” (About/Story) section from the single-page site so it is no longer rendered, linked in the navbar, or tracked in the scroll-spy active section logic.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-revise-the-site-s-written-content-to-remove-avoid-lovey-dovey-romantic-phrasing-and-keep-the-tone-respectful-traditional-and-appropriate-for-an-arranged-marriage-without-making-the-text-negative-update-any-affected-centralized-copy-so-it-remains-consistent-across-the-ui",
+      "title": "Revise the site’s written content to remove/avoid “lovey-dovey” romantic phrasing and keep the tone respectful, traditional, and appropriate for an arranged marriage (without making the text negative). Update any affected centralized copy so it remains consistent across the UI.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-restore-the-website-s-previous-old-hindi-copy-across-all-rendered-sections-hero-highlights-timeline-messages-closing-blessing-navbar-footer-keeping-the-content-as-it-was-before-the-recent-change-except-for-the-specific-parts-that-the-user-previously-requested-to-exclude-e-g-removed-photo-related-features-removed-music-player-and-removed-humari-kahani-section",
+      "title": "Restore the website’s previous (“old”) Hindi copy across all rendered sections (Hero, Highlights, Timeline, Messages, Closing Blessing, Navbar, Footer), keeping the content as it was before the recent change, except for the specific parts that the user previously requested to exclude (e.g., removed photo-related features, removed music player, and removed “Humari Kahani” section).",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-centralized-content-source-so-that-all-restored-copy-comes-from-the-single-content-config-module-instead-of-being-scattered-or-hardcoded-and-ensure-every-section-reads-from-that-centralized-content-to-prevent-future-accidental-text-loss",
+      "title": "Update the centralized content source so that all restored copy comes from the single content/config module (instead of being scattered or hardcoded), and ensure every section reads from that centralized content to prevent future accidental text loss.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-lightweight-regression-check-in-the-ui-to-make-missing-copy-issues-obvious-during-review-if-any-required-text-fields-from-the-centralized-content-config-are-empty-undefined-show-a-visible-fallback-message-in-hindi-and-log-a-console-warning-indicating-which-field-is-missing",
+      "title": "Add a lightweight regression check in the UI to make missing-copy issues obvious during review: if any required text fields from the centralized content/config are empty/undefined, show a visible fallback message in Hindi and log a console warning indicating which field is missing.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-edit-the-timeline-content-so-it-matches-the-user-s-requested-single-milestone-year-2003-with-date-06-digits-and-the-event-text-in-hindi-e-g-remove-the-other-existing-timeline-milestones-so-only-this-one-remains-ensure-all-non-digit-text-in-the-timeline-milestone-is-hindi",
+      "title": "Edit the Timeline content so it matches the user’s requested single milestone: Year \"2003\" with date \"06\" (digits) and the event text in Hindi (e.g., \"शादी/विवाह\"). Remove the other existing timeline milestones so only this one remains. Ensure all non-digit text in the timeline milestone is Hindi.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-dedicated-section-for-comments-from-different-people-text-only-with-all-user-facing-copy-in-hindi-digits-may-remain-as-digits-the-comments-data-must-be-editable-from-the-centralized-content-module-and-the-section-must-be-reachable-from-the-navbar-and-included-in-scroll-spy-active-section-tracking",
+      "title": "Add a new dedicated section for comments from different people (text-only), with all user-facing copy in Hindi (digits may remain as digits). The comments data must be editable from the centralized content module, and the section must be reachable from the navbar and included in scroll-spy active section tracking.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-centralized-timeline-dataset-in-frontend-src-anniversary-content-ts-to-match-the-user-provided-milestones-2003-2020-and-add-a-few-additional-positive-placeholder-milestones-that-are-clearly-marked-as-editable",
+      "title": "Update the centralized timeline dataset in `frontend/src/anniversary/content.ts` to match the user-provided milestones (2003–2020) and add a few additional positive placeholder milestones that are clearly marked as editable.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-visitor-comment-submission-feature-in-the-comments-section-provide-a-form-name-comment-that-lets-site-visitors-submit-a-comment-persist-submitted-comments-in-the-motoko-backend-and-display-submitted-comments-in-the-comments-section-ui",
+      "title": "Add a visitor comment submission feature in the Comments section: provide a form (name + comment) that lets site visitors submit a comment, persist submitted comments in the Motoko backend, and display submitted comments in the Comments section UI.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -250,6 +326,36 @@
     {
       "id": "AR-10",
       "summary": "Remove/omit the background audio/music player feature and remove/omit all photo-related parts (photo gallery/intake/display) from the website.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Remove the “Humari Kahani” section/part from the site and further reduce any overly “lovey-dovey” content; keep tone nice, respectful, and appropriate for an arranged-marriage context.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Edit the Timeline section content to reflect the specified milestone: “2003 06 Feb” (digits as-is) with the event text in Hindi (e.g., marriage/शादी).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add a new section for comments/messages from different people (text-based, in Hindi; digits allowed where needed).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Update the Timeline section to include the user-provided multiple milestones (2003–2020) and add a few additional positive milestones, all rendered in the existing Hindi site style.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add a visitor comments feature: a new section with a form that lets site visitors leave a comment (name + message) and displays submitted comments.",
       "reqIds": [],
       "status": "pending"
     }

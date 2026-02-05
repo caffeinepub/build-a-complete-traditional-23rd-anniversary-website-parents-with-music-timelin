@@ -1,125 +1,45 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove audio + photo features/sections from anniversary site (frontend-only)",
+  "title": "Timeline milestone update and visitor comment submission UI",
   "requirements": [
     {
-      "id": "REQ-22",
-      "summary": "Remove the background music UI and all audio playback logic/asset references from the runtime.",
+      "id": "REQ-34",
+      "summary": "Update the centralized timeline dataset to include the user-provided 2003–2020 milestones and add clearly editable positive placeholders.",
       "acceptanceCriteria": [
-        "The MusicPlayer component is not rendered anywhere in the app.",
-        "The app no longer references or requires any audio asset paths under /assets/audio/ (directly or via config).",
-        "There are no remaining user-facing audio controls (play/pause/volume/mute) in the UI."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Remove MusicPlayer import and rendering so no audio player UI is mounted anywhere; ensure no leftover audio-related UI controls remain."
-        },
-        {
-          "path": "frontend/src/components/MusicPlayer.tsx",
-          "operation": "delete",
-          "description": "Delete the MusicPlayer component implementation so no audio playback logic ships in the frontend bundle."
-        },
-        {
-          "path": "frontend/src/anniversary/content.ts",
-          "operation": "modify",
-          "description": "Remove the music/audio configuration block and any inline audio setup instructions so the app no longer references /assets/audio/ paths."
-        }
-      ]
-    },
-    {
-      "id": "REQ-23",
-      "summary": "Remove the Photo Gallery section and all gallery-driven lightbox interactions, including navbar/scroll-spy references.",
-      "acceptanceCriteria": [
-        "The Gallery section is not rendered in the page flow.",
-        "The navbar/scroll-spy no longer includes a Gallery entry/section id and does not track it.",
-        "No lightbox/modal is opened from gallery interactions because gallery interactions are removed."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Remove GallerySection import and rendering from the page flow, and update the scroll-spy section list to exclude the gallery section id."
-        },
-        {
-          "path": "frontend/src/components/AnniversaryNavbar.tsx",
-          "operation": "modify",
-          "description": "Remove the 'gallery' nav item so the navbar no longer includes or scrolls to the Gallery section."
-        },
-        {
-          "path": "frontend/src/components/GallerySection.tsx",
-          "operation": "delete",
-          "description": "Delete the Gallery section implementation (grid + click-to-open lightbox) so no gallery interactions remain."
-        },
-        {
-          "path": "frontend/src/components/LightboxDialog.tsx",
-          "operation": "delete",
-          "description": "Remove the shared image lightbox dialog since gallery/lightbox interactions are being removed (and it will no longer be used after letter removal as well)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-24",
-      "summary": "Remove the framed hero photo so the Hero section renders without any photo or gallery-sourced image references.",
-      "acceptanceCriteria": [
-        "The Hero section renders without any photo/image that was previously displayed as the framed hero photo.",
-        "The app does not reference the hero photo path (e.g., /assets/gallery/then-and-now.jpg) anymore."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/HeroSection.tsx",
-          "operation": "modify",
-          "description": "Remove FramedPhoto usage and the hero image asset reference so the hero displays only the existing text content."
-        },
-        {
-          "path": "frontend/src/components/FramedPhoto.tsx",
-          "operation": "delete",
-          "description": "Delete the FramedPhoto component since the hero framed photo is removed and it should no longer be referenced anywhere."
-        }
-      ]
-    },
-    {
-      "id": "REQ-25",
-      "summary": "Remove the handwritten letter image preview and letter lightbox from the Family Messages section so only text messages remain.",
-      "acceptanceCriteria": [
-        "The Messages section does not render any handwritten letter image preview button.",
-        "The Messages section does not open a lightbox/modal for a handwritten letter image.",
-        "The app no longer references or requires any letter image asset paths under /assets/letters/."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/MessagesSection.tsx",
-          "operation": "modify",
-          "description": "Remove handwritten letter rendering, the image preview button, and the letter lightbox state/trigger so the section contains only the text-based messages."
-        },
-        {
-          "path": "frontend/src/anniversary/content.ts",
-          "operation": "modify",
-          "description": "Remove handwritten letter configuration (and any /assets/letters/ paths) so no letter image assets are referenced by the app."
-        }
-      ]
-    },
-    {
-      "id": "REQ-26",
-      "summary": "Update the centralized anniversary configuration to remove photo/audio fields and related inline instructions now that those features are removed.",
-      "acceptanceCriteria": [
-        "The configuration no longer contains photo gallery instructions or gallery dataset entries if they are not used by the app.",
-        "The configuration no longer contains handwritten letter image configuration if it is not used by the app.",
-        "The configuration no longer contains music/audio configuration if it is not used by the app.",
-        "The frontend builds successfully with no unused/invalid references caused by removing these config fields."
+        "`anniversaryContent.timeline` contains milestones representing all 7 user-provided entries (years and dates preserved as written by the user).",
+        "The timeline still renders correctly in `TimelineSection` with no layout break across mobile/desktop.",
+        "At least 2 additional timeline items are added as positive, generic placeholders (e.g., clearly labeled for later editing) and are editable in the same `anniversaryContent.timeline` array."
       ],
       "file_operations": [
         {
           "path": "frontend/src/anniversary/content.ts",
           "operation": "modify",
-          "description": "Remove photo gallery instructions and data, remove handwritten letter image config, and remove music/audio config; ensure remaining content shape matches what the UI now consumes."
+          "description": "Replace/extend `anniversaryContent.timeline` to include all 7 user-provided milestones (preserving years/dates exactly as written: 2003 06 feb, 2004 19 march, 2009, 2010, 2016 car, 2016 shifted to campus, 2020 covid pandemic) and add at least 2 additional positive placeholder milestones clearly labeled as editable (e.g., 'Placeholder — edit this'). Ensure entries remain compatible with `TimelineSection` expectations (year/title/description strings)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-35",
+      "summary": "Add a visitor comment submission form and display persisted comments in the Comments section using React Query and the existing backend actor hook.",
+      "acceptanceCriteria": [
+        "Backend: `backend/main.mo` implements comment storage and exposes methods to (1) list comments and (2) add a comment (with basic validation such as non-empty fields and reasonable max lengths).",
+        "Backend data persists across page refreshes/upgrades using stable storage (add `backend/migration.mo` only if required by an existing state upgrade).",
+        "Frontend: `CommentsSection` includes a visible form with inputs for visitor name and comment plus a submit button.",
+        "Frontend: On submit, the UI calls the backend to store the comment, then refreshes the displayed list without a full page reload (React Query).",
+        "Frontend: The Comments section displays a list that includes newly submitted comments; submission shows user feedback for loading and error states.",
+        "No photo or music-related UI/logic is reintroduced while implementing this feature."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/usePosts.ts",
+          "operation": "create",
+          "description": "Create a React Query hook layer for comments/posts: fetch the list via the backend actor (`getPosts`) and provide an add mutation via (`addPost`) that invalidates/refetches the posts query on success. Keep validation/user messaging in the UI layer (this hook should focus on data fetching/mutation and cache refresh)."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/CommentsSection.tsx",
           "operation": "modify",
-          "description": "Confirm App references only remaining config fields after config cleanup (and ensure the app compiles cleanly without removed photo/audio fields)."
+          "description": "Implement a visitor comment submission UI (name + comment + submit) and replace/augment the displayed list to render backend-provided posts. Use React Query (via the new `usePosts` hook) to load posts and to submit a new post without full page reload; show loading and error states for both list fetch and submission. Use shadcn-ui components (e.g., Button/Input/Textarea/Card as available) to build the form and list styling—verify the component's usage instructions before implementing. Ensure all user-facing text for the new form (labels, placeholders, button text, and error messages) is in English."
         }
       ]
     }

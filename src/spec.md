@@ -1,13 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Remove all background music and photo-related features/sections from the anniversary website.
+**Goal:** Update the anniversary timeline milestones to match the provided events and add a visitor comment submission feature that persists and displays comments.
 
 **Planned changes:**
-- Remove the background music feature so no audio player UI is rendered and no audio playback logic/assets are referenced.
-- Remove all photo gallery functionality, including the Gallery section, navbar/scroll-spy entry, and any gallery lightbox/modal interactions.
-- Update the Hero section to render without the framed/featured photo and remove any hero photo asset references.
-- Update the Family Messages section to be text-only by removing handwritten letter image previews and any related lightbox/modal behavior, plus remove letter image asset references.
-- Update the centralized anniversary configuration to remove now-unused photo/audio fields and related instructions.
+- Update `frontend/src/anniversary/content.ts` to include all 7 user-provided timeline milestones (2003–2020) with dates/wording preserved as provided.
+- Add at least 2 additional positive placeholder timeline milestones that are clearly labeled as editable within the same timeline array.
+- Implement backend comment storage in `backend/main.mo` with methods to add a comment and list comments, including basic validation and stable persistence across refreshes/upgrades.
+- Update the frontend `CommentsSection` to include a name + comment submission form, submit to the backend, and refresh the displayed comment list via React Query without a full page reload.
+- Add loading and error feedback states for comment submission and comment list refresh in the Comments UI.
 
-**User-visible outcome:** The site no longer has any music controls or playback, and all photo-based elements (hero photo, gallery, and letter images) are removed so only non-photo content remains.
+**User-visible outcome:** Visitors can view the updated timeline and submit their name and a comment, which is saved and then appears in the on-page comments list after submission.

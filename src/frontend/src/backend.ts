@@ -89,10 +89,44 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Post {
+    name: string;
+    comment: string;
+}
 export interface backendInterface {
+    addPost(name: string, comment: string): Promise<void>;
+    getPosts(): Promise<Array<Post>>;
 }
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
+    async addPost(arg0: string, arg1: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addPost(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addPost(arg0, arg1);
+            return result;
+        }
+    }
+    async getPosts(): Promise<Array<Post>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getPosts();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getPosts();
+            return result;
+        }
+    }
 }
 export interface CreateActorOptions {
     agent?: Agent;

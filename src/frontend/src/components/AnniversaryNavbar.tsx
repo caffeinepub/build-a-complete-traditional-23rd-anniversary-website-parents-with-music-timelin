@@ -1,17 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { anniversaryContent } from '../anniversary/content';
+import RequiredContent from './RequiredContent';
 
 interface AnniversaryNavbarProps {
     activeSection: string;
 }
-
-const navItems = [
-    { id: 'hero', label: 'होम' },
-    { id: 'about', label: 'हमारी कहानी' },
-    { id: 'timeline', label: 'समयरेखा' },
-    { id: 'messages', label: 'संदेश' },
-    { id: 'closing', label: 'आशीर्वाद' }
-];
 
 export default function AnniversaryNavbar({ activeSection }: AnniversaryNavbarProps) {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -45,12 +39,15 @@ export default function AnniversaryNavbar({ activeSection }: AnniversaryNavbarPr
                         onClick={() => scrollToSection('hero')}
                         className="text-xl font-serif font-bold text-primary hover:text-primary/80 transition-colors"
                     >
-                        23 वर्ष
+                        <RequiredContent 
+                            value={anniversaryContent.navigation.brand}
+                            fieldPath="navigation.brand"
+                        />
                     </button>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-1">
-                        {navItems.map((item) => (
+                        {anniversaryContent.navigation.menuItems.map((item) => (
                             <button
                                 key={item.id}
                                 onClick={() => scrollToSection(item.id)}
@@ -60,7 +57,10 @@ export default function AnniversaryNavbar({ activeSection }: AnniversaryNavbarPr
                                         : 'text-foreground hover:bg-secondary hover:text-foreground'
                                 }`}
                             >
-                                {item.label}
+                                <RequiredContent 
+                                    value={item.label}
+                                    fieldPath={`navigation.menuItems[${item.id}].label`}
+                                />
                             </button>
                         ))}
                     </div>
@@ -69,7 +69,7 @@ export default function AnniversaryNavbar({ activeSection }: AnniversaryNavbarPr
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         className="md:hidden p-2 rounded-md text-foreground hover:bg-secondary"
-                        aria-label={isMobileMenuOpen ? 'मेनू बंद करें' : 'मेनू खोलें'}
+                        aria-label={isMobileMenuOpen ? anniversaryContent.navigation.mobileMenuClose : anniversaryContent.navigation.mobileMenuOpen}
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
@@ -80,7 +80,7 @@ export default function AnniversaryNavbar({ activeSection }: AnniversaryNavbarPr
             {isMobileMenuOpen && (
                 <div className="md:hidden bg-background border-t border-border">
                     <div className="px-4 py-2 space-y-1">
-                        {navItems.map((item) => (
+                        {anniversaryContent.navigation.menuItems.map((item) => (
                             <button
                                 key={item.id}
                                 onClick={() => scrollToSection(item.id)}
@@ -90,7 +90,10 @@ export default function AnniversaryNavbar({ activeSection }: AnniversaryNavbarPr
                                         : 'text-foreground hover:bg-secondary'
                                 }`}
                             >
-                                {item.label}
+                                <RequiredContent 
+                                    value={item.label}
+                                    fieldPath={`navigation.menuItems[${item.id}].label`}
+                                />
                             </button>
                         ))}
                     </div>

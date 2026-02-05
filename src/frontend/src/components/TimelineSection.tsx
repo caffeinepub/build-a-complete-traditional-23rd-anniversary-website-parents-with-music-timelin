@@ -1,10 +1,16 @@
 import { anniversaryContent } from '../anniversary/content';
+import RequiredContent from './RequiredContent';
 
 export default function TimelineSection() {
     return (
         <section id="timeline" className="section-container">
             <div className="max-w-4xl mx-auto">
-                <h2 className="heading-secondary text-center mb-16">वर्षों की यात्रा</h2>
+                <h2 className="heading-secondary text-center mb-16">
+                    <RequiredContent 
+                        value={anniversaryContent.timelineSection.heading}
+                        fieldPath="timelineSection.heading"
+                    />
+                </h2>
                 
                 <div className="relative">
                     {/* Timeline line */}
@@ -25,13 +31,22 @@ export default function TimelineSection() {
                                 <div className={`ml-16 md:ml-0 md:w-1/2 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                                     <div className="bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
                                         <div className="text-sm font-bold text-accent mb-2">
-                                            {milestone.year}
+                                            <RequiredContent 
+                                                value={milestone.year}
+                                                fieldPath={`timeline[${index}].year`}
+                                            />
                                         </div>
                                         <h3 className="text-xl font-serif font-semibold text-foreground mb-2">
-                                            {milestone.title}
+                                            <RequiredContent 
+                                                value={milestone.title}
+                                                fieldPath={`timeline[${index}].title`}
+                                            />
                                         </h3>
                                         <p className="text-muted-foreground">
-                                            {milestone.description}
+                                            <RequiredContent 
+                                                value={milestone.description}
+                                                fieldPath={`timeline[${index}].description`}
+                                            />
                                         </p>
                                     </div>
                                 </div>
